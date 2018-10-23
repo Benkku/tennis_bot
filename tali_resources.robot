@@ -11,7 +11,7 @@ ${CALENDAR_ID}                              bookingcalform-p_pvm_custom
 
 Find Hour From Tali Tomorrow Between
     [Arguments]    ${start_hour}    ${end_hour}
-    Open browser    https://varaukset.talintenniskeskus.fi/booking/booking-calendar  chrome
+    Go to    https://varaukset.talintenniskeskus.fi/booking/booking-calendar
     Wait Until Element Is Enabled    ${TOMORROW_BUTTON_XPATH}
     Click Element    ${CALENDAR_ID}
     Click Element    ${TOMORROW_BUTTON_XPATH}
@@ -23,9 +23,9 @@ Find Hour From Tali Tomorrow Between
     \    ${half} =    Run Keyword And Return Status    Page Should Contain Element    //td[@class="s-avail"]/a[contains(text(), "${start_str_half}")]
     \    Run Keyword If    ${even}    Exit For Loop
     \    Run Keyword If    ${half}    Exit For Loop
-    ${hour_found} =    Run Keyword If    ${even}    Set Variable    ${TRUE}
-    ${hour_found} =    Run Keyword If    ${half}    Set Variable    ${TRUE}
-    [Return]    ${hour_found}
+    Return From Keyword If    ${even}    ${TRUE}
+    Return From Keyword If    ${half}    ${TRUE}
+    [Return]    ${FALSE}
 
 
 

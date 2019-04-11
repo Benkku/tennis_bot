@@ -15,6 +15,7 @@ Find Hour From Tali Tomorrow Between
     Wait Until Element Is Enabled    ${TOMORROW_BUTTON_XPATH}
     Click Element    ${CALENDAR_ID}
     Click Element    ${TOMORROW_BUTTON_XPATH}
+    sleep  1 s
     ${hour_found} =    Set Variable    ${FALSE}
     : FOR    ${INDEX}    IN RANGE    ${startHour}    ${endHour}   
     \    ${start_str_even} =    start hour 2 str    ${INDEX}

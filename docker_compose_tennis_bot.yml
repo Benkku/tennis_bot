@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+    hub:
+        image: selenium/hub:3.141.0
+        expose:
+            - 4444
+        networks:
+            - rafa
+
+    chrome:
+        image: selenium/node-chrome-debug:3.141.0
+        environment:
+            - HUB_PORT_4444_TCP_ADDR=hub
+            - HUB_PORT_4444_TCP_PORT=4444
+        depends_on:
+            - hub
+        volumes:
+            - /dev/shm:/dev/shm
+        networks:
+            - rafa
+
+    tennis-bot:
+
+        image: robot-tennis-bot:latest
+        #command: robot -s "getFreeSlot" robot_files/
+
+        command: robot -d docker_output_folder -L trace -v BROWSER:gc -v SELENIUM_SERVER:"http://hub:4444/wd/hub" -v EARLIEST_START_HOUR:"18" -v LATEST_START_HOUR:"20" robot_files/
+        # -v EARLIEST_START_HOUR:"15" -v LATEST_START_HOUR:"17"
+    #   environment:
+     #       - EARLIEST_START_HOUR
+      #      - LATEST_START_HOUR
+        volumes:
+            - ./robot_files:/robot_files
+            - ./docker_output_folder/:/docker_output_folder:rw
+        depends_on:
+            - chrome
+        networks:
+            - rafa
+
+networks:
+    rafa:

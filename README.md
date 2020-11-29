@@ -12,9 +12,15 @@ Find tennis hour from booking systems. Currently supporting Tali hall, Helsinki,
  
 ## use:
 
-Fill time frame as even hours: 
+Fill time frame as even hours and day numbers which days to find:
 ```
-robot -v EARLIEST_START_HOUR:"15" -v LATEST_START_HOUR:"17" .
+${EARLIEST_START_HOUR}                   17
+${LATEST_START_HOUR}                     21
+@{DAY_NUMBER_LIST}                       6  7  8
+```
+Run:
+```
+robot -L trace .
 ```
 The bot crawls until an hour is found and PASS status is shown, or FAIL until timeout.
 
